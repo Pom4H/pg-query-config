@@ -1,0 +1,36 @@
+{
+  "name": "pg-query-config",
+  "version": "1.0.7",
+  "description": "Query Builder for PostgreSQL",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pom4H/pg-query-config.git"
+  },
+  "keywords": [
+    "pg",
+    "postgres",
+    "query",
+    "builder",
+    "typescript",
+    "jsonb"
+  ],
+  "author": {
+    "name": "Roman Popov",
+    "email": "atfpom4h@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pom4H/pg-query-config/issues"
+  },
+  "homepage": "https://github.com/Pom4H/pg-query-config#readme"
+}
