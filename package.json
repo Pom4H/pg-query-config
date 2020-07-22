@@ -16,6 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/Pom4H/pg-query-config.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "keywords": [
     "pg",
     "postgres",
