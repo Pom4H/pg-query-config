@@ -1,6 +1,6 @@
 {
   "name": "pg-query-config",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Query Builder for PostgreSQL",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -10,7 +10,7 @@
     "prepare": "npm run build"
   },
   "devDependencies": {
-    "typescript": "^3.9.3"
+    "typescript": "^4.1.2"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,7 @@
   "keywords": [
     "pg",
     "postgres",
-    "query",
-    "builder",
+    "query builder",
     "typescript",
     "jsonb"
   ],
