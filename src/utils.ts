@@ -9,4 +9,13 @@ const addValueToReferenceSet = (value: number | string, referenceSet: Set<number
     return reference;
 };
 
-export { addValueToReferenceSet };
+const isArrayOfObjects = (arg: any[]): arg is object[] => {
+    return arg.some(entry => typeof entry === 'object');
+}
+
+const isJson = (arg: number | number[] | string | string[] | object | object[]): arg is object | object[] => {
+    return Array.isArray(arg) && isArrayOfObjects(arg) || typeof arg === 'object';
+}
+
+export { addValueToReferenceSet, isJson };
+

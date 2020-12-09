@@ -4,9 +4,10 @@ import { addValueToReferenceSet } from './utils';
 import { wrap } from './wrappers';
 
 export class QueryConfig<T extends { [key in string]: any }> {
+    // make api for subqueries in the future
+    public sqlCommand: string;
     private readonly schema?: string;
     private readonly table: string;
-    protected sqlCommand: string;
     private columnSet: Set<string>;
     private joinSet: Set<string>;
     private whereSet: Set<string>;
