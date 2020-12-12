@@ -16,4 +16,8 @@ type OrderCondition<T> = {
     [P in keyof T]?: T[P] extends object ? OrderCondition<T[P]> : 'ASC' | 'DESC';
 };
 
-export { QueryParams, WhereFunction, WhereCondition, OrderCondition };
+function isNullableCondition(fn: Function): fn is Function & { nullableCondition: string } {
+    return !!(fn as Function & { nullableCondition?: string }).nullableCondition;
+}
+
+export { QueryParams, WhereFunction, WhereCondition, OrderCondition, isNullableCondition };

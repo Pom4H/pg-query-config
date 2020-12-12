@@ -8,18 +8,26 @@ import { addValueToReferenceSet, isJson } from './utils';
 
 /** IN(arg1, arg2, ...) */
 const In = <T extends number | string>(args: T[]): WhereFunction<T> => {
-    return function (valueRefSet: Set<T>) {
-        const refs = args.map((arg) => `$${addValueToReferenceSet(arg, valueRefSet)}`);
+    const fn = function (valueRefSet: Set<T>) {
+        const refs = args.filter(arg => arg).map(arg => `$${addValueToReferenceSet(arg, valueRefSet)}`);
         return `IN (${refs.join(',')})`;
     };
+    if (args.some(arg => arg === null)) {
+        fn.nullableCondition = 'IS NULL';
+    }
+    return fn;
 };
 
 /** NOT IN(arg1, arg2, ...) */
 const NotIn = <T extends number | string>(args: T[]): WhereFunction<T> => {
-    return function (valueRefSet: Set<T>) {
-        const refs = args.map((arg) => `$${addValueToReferenceSet(arg, valueRefSet)}`);
+    const fn = function (valueRefSet: Set<T>) {
+        const refs = args.filter(arg => arg).map(arg => `$${addValueToReferenceSet(arg, valueRefSet)}`);
         return `NOT IN (${refs.join(',')})`;
     };
+    if (args.some(arg => arg === null)) {
+        fn.nullableCondition = 'IS NOT NULL';
+    }
+    return fn;
 };
 
 /** Equal(arg) or EQ(arg)*/

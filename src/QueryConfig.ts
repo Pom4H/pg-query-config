@@ -1,4 +1,4 @@
-import { QueryParams, WhereCondition, OrderCondition } from './types';
+import { QueryParams, WhereCondition, OrderCondition, isNullableCondition } from './types';
 import { createCondition } from './conditions';
 import { addValueToReferenceSet } from './utils';
 import { wrap } from './wrappers';
@@ -81,11 +81,16 @@ export class QueryConfig<T extends { [key in string]: any }> {
     private buildWhereConditions(whereCondition: WhereCondition<T>): string[] {
         const whereConditions: string[] = [];
         const whereConditionMap = createCondition(whereCondition);
-        for (const [column, value] of whereConditionMap) {
+        for (const [col, value] of whereConditionMap) {
+            const column = wrap(col);
             if (typeof value === 'function') {
-                whereConditions.push(`${wrap(column)} ${value(this.valueRefSet)}`);
+                if (isNullableCondition(value)) {
+                    whereConditions.push(`(${column} ${value(this.valueRefSet)} OR ${column} ${value.nullableCondition})`);
+                } else {
+                    whereConditions.push(`${column} ${value(this.valueRefSet)}`);
+                }
             } else {
-                whereConditions.push(`${wrap(column)} = $${addValueToReferenceSet(value, this.valueRefSet)}`);
+                whereConditions.push(`${column} = $${addValueToReferenceSet(value, this.valueRefSet)}`);
             }
         }
         return whereConditions;
