@@ -81,16 +81,23 @@ export class QueryConfig<T extends { [key in string]: any }> {
     private buildWhereConditions(whereCondition: WhereCondition<T>): string[] {
         const whereConditions: string[] = [];
         const whereConditionMap = createCondition(whereCondition);
-        for (const [col, value] of whereConditionMap) {
-            const column = wrap(col);
+        for (const [column, value] of whereConditionMap) {
+            const col = wrap(column);
             if (typeof value === 'function') {
+                const fnValue = value(this.valueRefSet);
                 if (isNullableCondition(value)) {
-                    whereConditions.push(`(${column} ${value(this.valueRefSet)} OR ${column} ${value.nullableCondition})`);
+                    if (fnValue) {
+                        whereConditions.push(`(${col} ${fnValue} OR ${col} ${value.nullableCondition})`);
+                    } else {
+                        whereConditions.push(`${col} ${value.nullableCondition})`);
+                    }
                 } else {
-                    whereConditions.push(`${column} ${value(this.valueRefSet)}`);
+                    whereConditions.push(`${col} ${fnValue}`);
                 }
+            } else if (value === null) {
+                whereConditions.push(`${col} IS NULL`);
             } else {
-                whereConditions.push(`${column} = $${addValueToReferenceSet(value, this.valueRefSet)}`);
+                whereConditions.push(`${col} = $${addValueToReferenceSet(value, this.valueRefSet)}`);
             }
         }
         return whereConditions;

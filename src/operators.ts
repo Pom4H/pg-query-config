@@ -9,8 +9,8 @@ import { addValueToReferenceSet, isJson } from './utils';
 /** IN(arg1, arg2, ...) */
 const In = <T extends number | string>(args: T[]): WhereFunction<T> => {
     const fn = function (valueRefSet: Set<T>) {
-        const refs = args.filter(arg => arg).map(arg => `$${addValueToReferenceSet(arg, valueRefSet)}`);
-        return `IN (${refs.join(',')})`;
+        const refs = args.filter(arg => arg || arg === 0).map(arg => `$${addValueToReferenceSet(arg, valueRefSet)}`);
+        return refs.length ? `IN (${refs.join(',')})` : '';
     };
     if (args.some(arg => arg === null)) {
         fn.nullableCondition = 'IS NULL';
@@ -21,8 +21,8 @@ const In = <T extends number | string>(args: T[]): WhereFunction<T> => {
 /** NOT IN(arg1, arg2, ...) */
 const NotIn = <T extends number | string>(args: T[]): WhereFunction<T> => {
     const fn = function (valueRefSet: Set<T>) {
-        const refs = args.filter(arg => arg).map(arg => `$${addValueToReferenceSet(arg, valueRefSet)}`);
-        return `NOT IN (${refs.join(',')})`;
+        const refs = args.filter(arg => arg || arg === 0).map(arg => `$${addValueToReferenceSet(arg, valueRefSet)}`);
+        return refs.length ? `NOT IN (${refs.join(',')})` : '';
     };
     if (args.some(arg => arg === null)) {
         fn.nullableCondition = 'IS NOT NULL';

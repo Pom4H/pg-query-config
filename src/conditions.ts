@@ -6,9 +6,11 @@ const createCondition = (object: Record<string, any>): Map<string, number | stri
     for (const prop in object) {
         if (Array.isArray(object[prop])) {
             conditionMap.set(prop, In(object[prop]));
+        } else if (object[prop] === null) {
+            conditionMap.set(prop, object[prop]);
         } else if (typeof object[prop] === 'object') {
             createJsonCondition(wrap(prop), object[prop], conditionMap);
-        } else if (object[prop]) {
+        } else if (object[prop] !== undefined) {
             conditionMap.set(prop, object[prop]);
         }
     }
@@ -19,9 +21,11 @@ const createJsonCondition = (key: string, object: any, conditionMap: Map<string,
     for (const prop in object) {
         if (Array.isArray(object[prop])) {
             conditionMap.set(`${key}->>'${prop}'`, In(object[prop]));
+        } else if (object[prop] === null) {
+            conditionMap.set(`${key}->>'${prop}'`, object[prop]);
         } else if (typeof object[prop] === 'object') {
             createJsonCondition(`${key}->'${prop}'`, object[prop], conditionMap);
-        } else if (object[prop]) {
+        } else if (object[prop] !== undefined) {
             conditionMap.set(`${key}->>'${prop}'`, object[prop]);
         }
     }
