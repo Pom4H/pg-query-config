@@ -89,7 +89,7 @@ export class QueryConfig<T extends { [key in string]: any }> {
                     if (fnValue) {
                         whereConditions.push(`(${col} ${fnValue} OR ${col} ${value.nullableCondition})`);
                     } else {
-                        whereConditions.push(`${col} ${value.nullableCondition})`);
+                        whereConditions.push(`${col} ${value.nullableCondition}`);
                     }
                 } else {
                     whereConditions.push(`${col} ${fnValue}`);
