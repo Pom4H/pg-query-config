@@ -78,6 +78,22 @@ const LessEqual = <T extends number | string>(arg: T): WhereFunction<T> => {
     };
 };
 
+/** Like (arg) */
+const Like = <T extends string>(arg: T): WhereFunction<T> => {
+    return function (valueRefSet: Set<any>) {
+        const ref = addValueToReferenceSet(arg, valueRefSet);
+        return `LIKE $${ref}`;
+    };
+};
+
+/** ILike (arg) */
+const ILike = <T extends string>(arg: T): WhereFunction<T> => {
+    return function (valueRefSet: Set<any>) {
+        const ref = addValueToReferenceSet(arg, valueRefSet);
+        return `ILIKE $${ref}`;
+    };
+};
+
 /**
  * Array operators
  * Right Operand @type number[] | string[]
@@ -238,7 +254,11 @@ export {
     LessEqual,
     LessEqual as lte,
     In,
-    NotIn
+    NotIn,
+    Like,
+    Like as like,
+    ILike,
+    ILike as ilike
 };
 
 export const array = {
