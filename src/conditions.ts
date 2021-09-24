@@ -1,4 +1,4 @@
-import { wrapToDoubleQuote as wrap } from './wrappers';
+import { wrap } from './wrappers';
 import { In } from './operators';
 
 const createCondition = (object: Record<string, any>): Map<string, number | string | Function> => {

@@ -1,7 +1,7 @@
 import { QueryParams, WhereCondition, OrderCondition, isNullableCondition } from './types';
 import { createCondition } from './conditions';
 import { addValueToReferenceSet } from './utils';
-import { wrapToDoubleQuote as wrap } from './wrappers';
+import { wrap } from './wrappers';
 
 export class QueryConfig<T extends { [key in string]: any }> {
     // make api for subqueries in the future
