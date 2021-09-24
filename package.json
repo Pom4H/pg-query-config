@@ -1,6 +1,6 @@
 {
   "name": "pg-query-config",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Query Builder for PostgreSQL",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/Pom4H/pg-query-config.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
     "pg",
