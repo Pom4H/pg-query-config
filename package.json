@@ -1,6 +1,6 @@
 {
   "name": "pg-query-config",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Query Builder for PostgreSQL",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
