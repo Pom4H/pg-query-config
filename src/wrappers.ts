@@ -1,4 +1,4 @@
-const isWrappable = (str: string) => /^[A-Za-z0-9]/.test(str);
+const isWrappable = (str: string) => !/[\!\@\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/.test(str);
 const wrapToDoubleQuote = (str: string) =>
     str
         .split('.')
